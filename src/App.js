@@ -1,24 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import CounterFunc from "./CounterFunc";
+import CounterClass from "./CounterClass";
+import OtherCounter from "./OtherCounter";
+import CounterRed from "./CounterRed";
 
 function App() {
+  const [friendId, setFriendId] = useState(1);
+  const [showCounterClass, setShowCounterClass] = useState(true);
+  const [showCounterFunc, setShowCounterFunc] = useState(true);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button
+        style={{ marginRight: 5 }}
+        onClick={() => setShowCounterClass(!showCounterClass)}
+      >
+        Mount/Unmount Counter (Class Component)
+      </button>
+      <button onClick={() => setShowCounterFunc(!showCounterFunc)}>
+        Mount/Unmount Counter (Func. Component)
+      </button>
+      <input
+        type="text"
+        value={friendId}
+        onChange={({ target }) => setFriendId(target.value)}
+      />
+      {showCounterClass && <CounterClass friendId={friendId} />}
+      {showCounterFunc && <CounterFunc friendId={friendId} />}
+      <OtherCounter />
+      <CounterRed counter={8} />
     </div>
   );
 }
